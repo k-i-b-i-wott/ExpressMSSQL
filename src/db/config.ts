@@ -27,7 +27,7 @@ export const config = {
         pool: {
             max: 10,
             min: 0,
-            IdleDeadlineTimeoutMillis: 30000
+            idleTimeoutMillis: 30000
         },
         options: {
             encrypt:true, 
