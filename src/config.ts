@@ -42,6 +42,7 @@ export const getPool = async () => {
         const pool = await sql.connect(config.sqlConfig);
         return pool;
     } catch (error) {
-        
+        console.error('SQL Connection Error: ', error);
+        throw error;        
     }
 }
