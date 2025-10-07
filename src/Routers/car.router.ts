@@ -2,6 +2,10 @@ import { Express } from "express";
 
 import * as carContoller from "../controllers/car.controller";
 
-export const carRouter = (app: Express) => {
+const carRoutes = (app: Express) => {
   app.get("/cars", carContoller.getAllCars);
+  app.post("/createCar", carContoller.addCar);
 };
+
+
+export default carRoutes;

@@ -1,18 +1,25 @@
-
+//bad request
 
 import { Request, Response } from 'express';
 import { getPool } from '../db/config';
 import sql from 'mssql';
+import * as carServices from '../Services/car.service';
 
 
 
 export const getAllCars = async (req: Request, res: Response) => {
-    try {
-        const pool = await getPool();
-        const result = await pool.request().query('SELECT * FROM Cars');
-        res. status(200).json(result.recordset);
-    }  catch (error) {
-        console.error('Error fetching cars: ', error);
-        res.status(500).json({ error: 'Internal Server Error' });
+    try {        
+        const cars = await carServices.listAllCars();
+        res.status(200).json(cars);
+    } catch (error) {
+        console.error('Error fetching cars:', error);
+        res.status(500).json({ message: 'Internal server error' });
+        
     }
-};
+}
+
+export const addCar = async(req: Request, res: Response) => {
+    const todo = req.body;
+    const result = await carServices.createCar(todo);   
+    res.status(201).json(result);
+}
