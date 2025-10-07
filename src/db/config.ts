@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 import assert from 'assert';
 import sql from 'mssql';
 
-dotenv.config(); // Load environment variables from .env file
+dotenv.config()
 
 const {
 SQL_SERVER, SQL_USER, SQL_PWD, SQL_DB,SQL_ENCRYPT,PORT 
@@ -23,7 +23,7 @@ export const config = {
         password: SQL_PWD,
         database: SQL_DB,
         server: SQL_SERVER,
-        // pool used to manage multiple connections
+        
         pool: {
             max: 10,
             min: 0,
