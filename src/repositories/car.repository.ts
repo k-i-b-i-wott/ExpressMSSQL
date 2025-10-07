@@ -19,3 +19,13 @@ export const addCar = async(todo:any) => {
     .query('INSERT INTO Car (car_model, manufucturer, year, color, rental_rate, availability) VALUES (@car_model,@manufucturer, @year, @color, @rental_rate, @availability)'    );
     return{ message: 'Car added successfully' };
 }
+
+
+export const getCarById = async (car_id: number) => {
+    const pool = await getPool();
+    const result = await pool
+      .request()
+      .input('car_id', car_id)
+      .query('SELECT * FROM Car WHERE car_id = @car_id');
+    return result.recordset[0];
+  }

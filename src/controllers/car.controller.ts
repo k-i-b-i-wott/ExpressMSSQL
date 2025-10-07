@@ -23,3 +23,20 @@ export const addCar = async(req: Request, res: Response) => {
     const result = await carServices.createCar(todo);   
     res.status(201).json(result);
 }
+
+
+export const getCarById = async (req: Request, res: Response) => {
+    const id = parseInt(req.params.id);
+
+    try {
+        const car = await carServices.getCarDetails(id);
+        if (car) {
+            res.status(200).json(car);
+        } else {
+            res.status(404).json({ message: 'Car not found' });
+        }
+    } catch (error) {
+        console.error('Error fetching car details:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+}

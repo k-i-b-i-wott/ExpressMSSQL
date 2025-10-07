@@ -7,3 +7,8 @@ export const listAllCars = async () => {
 export const createCar = async (carData: any) => {
     return await carRepositories.addCar(carData);
 }
+
+
+export const getCarDetails = async (id: number) => {
+    return await carRepositories.getCarById(id);
+}
