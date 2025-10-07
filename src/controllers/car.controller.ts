@@ -30,13 +30,13 @@ export const getCarById = async (req: Request, res: Response) => {
 
     try {
         const car = await carServices.getCarDetails(id);
-        if (car) {
-            res.status(200).json(car);
-        } else {
-            res.status(404).json({ message: 'Car not found' });
+        res.status(200).json(car);
+    } catch (error: any) {
+        if (error.message === 'Invalid car ID') {
+            return res.status(400).json({ message: error.message });
+        }else if (error.message === 'Car not found') {
+            return res.status(404).json({ message: error.message });
         }
-    } catch (error) {
-        console.error('Error fetching car details:', error);
         res.status(500).json({ message: 'Internal server error' });
     }
 }

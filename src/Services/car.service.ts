@@ -10,5 +10,14 @@ export const createCar = async (carData: any) => {
 
 
 export const getCarDetails = async (id: number) => {
-    return await carRepositories.getCarById(id);
+     if (isNaN(id) || id <= 0) {
+        throw new Error('Invalid car ID');
+    }   
+
+    const car = await carRepositories.getCarById(id);
+    if (!car) {
+        throw new Error('Car not found');
+    }
+
+    return car;
 }
