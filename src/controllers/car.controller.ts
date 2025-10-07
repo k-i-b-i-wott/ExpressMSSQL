@@ -40,3 +40,19 @@ export const getCarById = async (req: Request, res: Response) => {
         res.status(500).json({ message: 'Internal server error' });
     }
 }
+
+export const deleteCar = async (req: Request, res: Response) => {
+    const id = parseInt(req.params.id);
+    try {
+        const result = await carServices.removeCar(id);
+        res.status(200).json(result);
+    } catch (error: any) {
+        if (error.message === 'Invalid car ID') {
+            return res.status(400).json({ message: error.message });
+        }
+        else if (error.message === 'Car not found') {
+            return res.status(404).json({ message: error.message });
+        }
+        res.status(500).json({ message: 'Internal server error' });
+    }
+}

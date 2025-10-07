@@ -21,3 +21,18 @@ export const getCarDetails = async (id: number) => {
 
     return car;
 }
+
+export const removeCar = async (id: number) => {
+    if (isNaN(id) || id <= 0) {
+        throw new Error('Invalid car ID');
+    }
+
+    const car = await carRepositories.getCarById(id);
+    if (!car) {
+        throw new Error('Car not found');
+    }
+    
+    await carRepositories.deleteCar(id);
+    
+    return { message: 'Car deleted successfully' };
+}

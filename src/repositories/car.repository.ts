@@ -29,3 +29,12 @@ export const getCarById = async (car_id: number) => {
       .query('SELECT * FROM Car WHERE car_id = @car_id');
     return result.recordset[0];
   }
+
+export const deleteCar = async (car_id: number) => {
+    const pool= await getPool();
+    await pool
+    .request()
+    .input('car_id', car_id)
+    .query('DELETE FROM Car WHERE car_id = @car_id');
+    return { message: 'Car deleted successfully' };
+}  
