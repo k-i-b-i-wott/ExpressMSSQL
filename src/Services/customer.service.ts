@@ -1,5 +1,6 @@
 import e from 'express';
 import * as customerRepositories from '../repositories/customer.repository';
+import { createCustomerDTO } from '../types/customer.types';
 
 export const listAllCustomers = async () => {
     return await customerRepositories.getAllCustomers();
@@ -18,6 +19,6 @@ export const getCustomerDetails = async (id: number) => {
     return customer;
 }
 
-export const addNewCustomer = async (customerData: any) => {
+export const addNewCustomer = async (customerData: createCustomerDTO) => {
     return await customerRepositories.createCustomer(customerData);
 }

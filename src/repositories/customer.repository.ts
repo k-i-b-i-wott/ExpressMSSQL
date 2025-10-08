@@ -1,4 +1,5 @@
 import { getPool } from "../db/config"
+import { createCustomerDTO } from "../types/customer.types";
 
 
 export const getAllCustomers = async () => {
@@ -16,7 +17,7 @@ export const getCustomerById = async (id: number) => {
     return result.recordset[0];
 }
 
-export const createCustomer= async(customerData:any)=>{
+export const createCustomer= async(customerData:createCustomerDTO)=>{
     const pool = await getPool();
     const result = await pool.request()
         .input('firstName', customerData.firstName)
