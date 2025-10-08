@@ -4,6 +4,7 @@ import { Express } from "express";
 
 const customerRoutes = (app: Express) => {
   app.get("/customers", customerContoller.getCustomers);
+  app.get("/customers/:id", customerContoller.getCustomer);
 }
 
 export default customerRoutes;
