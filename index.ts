@@ -2,6 +2,7 @@ import express from "express";
 
 import { getPool } from "./src/db/config";
 import carRoutes from "./src/Routers/car.router";
+import customerRoutes from "./src/Routers/customer.routes";
 
 
 
@@ -12,6 +13,7 @@ app.use(express.json());
 //register routes here
 
 carRoutes (app);
+customerRoutes(app);
 
 
 

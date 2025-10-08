@@ -1,0 +1,9 @@
+import * as customerContoller from "../controllers/customer.controller";
+import { Express } from "express";
+
+
+const customerRoutes = (app: Express) => {
+  app.get("/customers", customerContoller.getCustomers);
+}
+
+export default customerRoutes;
