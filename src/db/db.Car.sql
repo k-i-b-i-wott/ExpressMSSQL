@@ -204,23 +204,27 @@ INSERT INTO Customer (firstName, lastName, email, phone_number, address) VALUES
 -- (5, 5, 5, '2024-05-12', '2024-05-13', '2024-05-17');
 
 
--- CREATE TABLE cars.Booking (
---     booking_id INT PRIMARY KEY,
---     car_id INT,
---     customer_id INT,
---     rental_start_date DATETIME,
---     rental_end_date DATETIME,
---     total_money MONEY,
---     FOREIGN KEY (car_id) REFERENCES cars.Car(car_id),
---     FOREIGN KEY (customer_id) REFERENCES cars.Customer(customer_id)
--- );
+CREATE TABLE Booking (
+    booking_id INT IDENTITY(1,1) PRIMARY KEY,
+    car_id INT NOT NULL,
+    customer_id INT NOT NULL,
+    rental_start_date DATETIME NOT NULL DEFAULT GETDATE(),
+    rental_end_date DATETIME NOT NULL,
+    total_amount MONEY NOT NULL,
+    FOREIGN KEY (car_id) REFERENCES Car(car_id),
+    FOREIGN KEY (customer_id) REFERENCES Customer(customer_id)
+);
+SELECT * FROM Booking;
 
--- INSERT INTO cars.Booking (booking_id, car_id, customer_id, rental_start_date, rental_end_date, total_money) VALUES
--- (1, 1, 1, '2024-01-12 09:00:00', '2024-01-15 18:00:00', 120.00),
--- (2, 2, 2, '2024-02-06 10:00:00', '2024-02-10 16:00:00', 180.00),
--- (3, 3, 3, '2024-03-03 08:00:00', '2024-03-07 20:00:00', 400.00),
--- (4, 4, 4, '2024-04-10 09:00:00', '2024-04-14 18:00:00', 200.00),
--- (5, 5, 5, '2024-05-13 07:00:00', '2024-05-17 22:00:00', 168.00);
+DROP TABLE IF EXISTS Booking;
+
+INSERT INTO Booking (car_id, customer_id, rental_start_date, rental_end_date, total_amount) VALUES
+
+
+(3, 3, '2024-03-03', '2024-03-07', 400.00),
+
+(5, 5, '2024-05-13', '2024-05-17', 168.00);
+
 
 -- SELECT * FROM cars.Booking;
 -- CREATE TABLE cars.Payment (
