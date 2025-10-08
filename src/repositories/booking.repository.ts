@@ -1,4 +1,5 @@
 import { getPool } from "../db/config";
+import { Booking } from "../types/booking.types";
 
 
 export const getBookings = async () => {
@@ -20,7 +21,7 @@ export const getBookingById = async (booking_id: number) => {
 };
 
 
-export const createBooking = async (bookingData: any) => {
+export const createBooking = async (bookingData: Booking) => {
     const pool = await getPool();
     await pool
     .request()

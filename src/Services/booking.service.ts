@@ -1,4 +1,5 @@
 import * as bookingRepository from '../repositories/booking.repository';
+import { Booking } from '../types/booking.types';
 
 export const getAllBookings = async () => {
     return await bookingRepository.getBookings();
@@ -17,7 +18,7 @@ export const getBookingDetails = async (booking_id: number) => {
     return await bookingRepository.getBookingById(booking_id);
 }
 
-export const createBooking = async (bookingData: any) => {
+export const createBooking = async (bookingData: Booking) => {
     
     await bookingRepository.createBooking(bookingData);
     return { message: 'Booking created successfully' };
