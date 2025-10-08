@@ -22,3 +22,14 @@ export const getCustomerDetails = async (id: number) => {
 export const addNewCustomer = async (customerData: createCustomerDTO) => {
     return await customerRepositories.createCustomer(customerData);
 }
+
+export const removeCustomer = async (id: number) => {
+    if (isNaN(id) || id <= 0) {
+        throw new Error("Invalid ID");
+    }
+    const customer = await customerRepositories.getCustomerById(id);
+    if (!customer) {
+        throw new Error("Customer not found");
+    }
+    return await customerRepositories.deleteCustomer(id);
+}

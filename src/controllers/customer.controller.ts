@@ -41,3 +41,20 @@ export const createCustomer = async (req: Request, res: Response) => {
         res.status(500).json({ error: "Internal Server Error", details: error.message } );
     }
 }
+
+export const deleteCustomer = async (req: Request, res: Response) => {
+    const id = parseInt(req.params.id);
+    try {
+        const result = await customerServices.removeCustomer(id);
+        res.status(200).json(result);
+    } catch (error: any) {
+        if (error.message === "Invalid ID") {
+            return res.status(400).json("{ error: error.message }");
+        }
+        if (error.message === "Customer not found") {
+            res.status(404).json({ error: error.message });
+        } else {
+            res.status(500).json({ error: "Internal Server Error" });
+        }
+    }
+}

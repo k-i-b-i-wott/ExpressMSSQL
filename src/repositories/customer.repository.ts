@@ -28,3 +28,11 @@ export const createCustomer= async(customerData:createCustomerDTO)=>{
         .query('INSERT INTO Customer (firstName, lastName, email, phone_number, address) VALUES (@firstName, @lastName, @email, @phone_number, @address)')
     return result.recordset;
 }
+
+export const deleteCustomer = async (id: number) => {
+    const pool = await getPool();
+    await pool.request()
+        .input('id', id)
+        .query('DELETE FROM Customer WHERE customer_id = @id');
+    return { message: "Customer deleted successfully" };
+}
