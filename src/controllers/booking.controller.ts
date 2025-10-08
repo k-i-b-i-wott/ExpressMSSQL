@@ -9,3 +9,16 @@ export const getBookings = async (req: Request, res: Response) => {
         res.status(500).json({ message: 'Error retrieving bookings', error });
     }
 };
+
+
+
+
+export const getBookingById = async (req: Request, res: Response) => {
+    const booking_id = parseInt(req.params.id);
+    try {
+        const booking = await bookingService.getBookingDetails(booking_id);
+        res.status(200).json(booking);
+    } catch (error: any) {
+        res.status(404).json({ message: 'Booking not found'});
+    }
+}
