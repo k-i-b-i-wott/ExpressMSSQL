@@ -30,3 +30,14 @@ export const getCustomer = async (req: Request, res: Response) => {
         }
     }
 }
+
+export const createCustomer = async (req: Request, res: Response) => {
+    const customerData = req.body;
+    try {
+        const newCustomer = await customerServices.addNewCustomer(customerData);
+        res.status(201).json({ message: "Customer added successfully", customer: newCustomer });
+        
+    } catch (error: any) {
+        res.status(500).json({ error: "Internal Server Error", details: error.message } );
+    }
+}

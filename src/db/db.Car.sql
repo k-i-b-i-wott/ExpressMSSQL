@@ -125,23 +125,25 @@ VALUES
 
 -- SELECT * FROM cars.maintenance;
 
--- CREATE TABLE Customer (
---     customer_id INT IDENTITY(1,1) PRIMARY KEY,
---     firstName VARCHAR(50),
---     lastName VARCHAR(50),
---     email VARCHAR(MAX),
---     phone_number VARCHAR(13),
---     address VARCHAR(20)
--- );
+CREATE TABLE Customer(
+    customer_id INT IDENTITY(1,1) PRIMARY KEY,
+    firstName VARCHAR(50) NOT NULL,
+    lastName VARCHAR(50) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    phone_number VARCHAR(13) NOT NULL,
+    address VARCHAR(100) NOT NULL
+);
 
--- SELECT * FROM Customer;
+-- DROP TABLE IF EXISTS Customer;
 
--- INSERT INTO Customer (firstName, lastName, email, phone_number, address) VALUES
--- ( 'John', 'Doe', 'john.doe@email.com', '0712345678', 'Nairobi'),
--- ('Jane', 'Smith', 'jane.smith@email.com', '0723456789', 'Mombasa'),
--- ( 'Alice', 'Brown', 'alice.brown@email.com', '0734567890', 'Kisumu'),
--- ('Bob', 'Johnson', 'bob.j@email.com', '0745678901', 'Nakuru'),
--- ( 'Charlie', 'Lee', 'charlie.lee@email.com', '0756789012', 'Eldoret');
+SELECT * FROM Customer;
+
+INSERT INTO Customer (firstName, lastName, email, phone_number, address) VALUES
+( 'John', 'Doe', 'john.doe@email.com', '0712345678', 'Nairobi'),
+('Jane', 'Smith', 'jane.smith@email.com', '0723456789', 'Mombasa'),
+( 'Alice', 'Brown', 'alice.brown@email.com', '0734567890', 'Kisumu'),
+('Bob', 'Johnson', 'bob.j@email.com', '0745678901', 'Nakuru'),
+( 'Charlie', 'Lee', 'charlie.lee@email.com', '0756789012', 'Eldoret');
 
 -- -- Update customer email
 -- UPDATE cars.Customer 

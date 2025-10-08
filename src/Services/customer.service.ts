@@ -17,3 +17,7 @@ export const getCustomerDetails = async (id: number) => {
 
     return customer;
 }
+
+export const addNewCustomer = async (customerData: any) => {
+    return await customerRepositories.createCustomer(customerData);
+}
