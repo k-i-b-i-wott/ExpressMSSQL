@@ -43,40 +43,18 @@ export const deleteCar = async (car_id: number) => {
 
 export const updateCar = async (car_id: number, carData: CarUpdate) => {
   const pool = await getPool();
-  const request = pool.request().input('car_id', car_id);
+  await pool
+  .request()
+  .input('car_id', car_id)
+  .input('car_model', carData.car_model)
+  .input('manufucturer', carData.manufucturer)
+  .input('year', carData.year)
+  .input('color', carData.color)
+  .input('rental_rate', carData.rental_rate)
+  .input('availability', carData.availability)
+  .query('UPDATE Car SET car_model = @car_model, manufucturer = @manufucturer, year = @year, color = @color, rental_rate = @rental_rate, availability = @availability WHERE car_id = @car_id');
+  return { message: 'Car updated successfully' };  
+ 
 
-  const setClauses: string[] = [];
-
-  if (carData.car_model !== undefined) {
-    request.input('car_model', carData.car_model);
-    setClauses.push('car_model = @car_model');
-  }
-  if (carData.manufucturer !== undefined) {
-    request.input('manufucturer', carData.manufucturer);
-    setClauses.push('manufucturer = @manufucturer');
-  }
-  if (carData.year !== undefined) {
-    request.input('year', carData.year);
-    setClauses.push('year = @year');
-  }
-  if (carData.color !== undefined) {
-    request.input('color', carData.color);
-    setClauses.push('color = @color');
-  }
-  if (carData.rental_rate !== undefined) {
-    request.input('rental_rate', carData.rental_rate);
-    setClauses.push('rental_rate = @rental_rate');
-  }
-  if (carData.availability !== undefined) {
-    request.input('availability', carData.availability);
-    setClauses.push('availability = @availability');
-  }
-
-  if (setClauses.length === 0) {
-    throw new Error('No fields to update');
-  }
-
-  const query = `UPDATE Car SET ${setClauses.join(', ')} WHERE car_id = @car_id`;
-  await request.query(query);
-  return { message: 'Car details updated successfully' };
+  
 }

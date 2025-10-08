@@ -1,5 +1,5 @@
 import { getPool } from "../db/config";
-import { Booking } from "../types/booking.types";
+import { Booking,BookingUpdate } from "../types/booking.types";
 
 
 export const getBookings = async () => {
@@ -41,3 +41,19 @@ export const deleteBooking = async (booking_id: number) => {
     .input('booking_id', booking_id)
     .query('DELETE FROM Booking WHERE booking_id = @booking_id');
 };
+
+export const updateBooking = async (booking_id: number, bookingData: Partial<BookingUpdate>) => {
+    const pool = await getPool();
+     await pool
+     .request()
+     .input('booking_id', booking_id)
+     .input('customer_id', bookingData.customer_id)
+     .input('car_id', bookingData.car_id)
+     .input('rental_start_date', bookingData.rental_start_date)
+     .input('rental_end_date', bookingData.rental_end_date)
+     .input('total_amount', bookingData.total_amount)
+     .query('UPDATE Booking SET customer_id = @customer_id, car_id = @car_id, rental_start_date = @rental_start_date, rental_end_date = @rental_end_date, total_amount = @total_amount WHERE booking_id = @booking_id');
+     return { message: 'Booking updated successfully' };        
+        
+    
+}
