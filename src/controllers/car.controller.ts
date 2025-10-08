@@ -1,6 +1,6 @@
 //bad request
 
-import { Request, Response } from 'express';
+import e, { Request, Response } from 'express';
 import { getPool } from '../db/config';
 import sql from 'mssql';
 import * as carServices from '../Services/car.service';
@@ -45,6 +45,25 @@ export const deleteCar = async (req: Request, res: Response) => {
     const id = parseInt(req.params.id);
     try {
         const result = await carServices.removeCar(id);
+        res.status(200).json(result);
+    } catch (error: any) {
+        if (error.message === 'Invalid car ID') {
+            return res.status(400).json({ message: error.message });
+        }
+        else if (error.message === 'Car not found') {
+            return res.status(404).json({ message: error.message });
+        }
+        res.status(500).json({ message: 'Internal server error' });
+    }
+}
+
+
+
+export const updateCar = async (req: Request, res: Response) => {
+    const id = parseInt(req.params.id);
+    const carData = req.body;
+    try {
+        const result = await carServices.modifyCar(id, carData);
         res.status(200).json(result);
     } catch (error: any) {
         if (error.message === 'Invalid car ID') {

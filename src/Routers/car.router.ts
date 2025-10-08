@@ -7,6 +7,8 @@ const carRoutes = (app: Express) => {
   app.post("/createCar", carContoller.addCar);
   app.get("/cars/:id", carContoller.getCarById);
   app.delete("/cars/:id", carContoller.deleteCar);
+  app.put("/cars/:id", carContoller.updateCar);
+
 };
 
 

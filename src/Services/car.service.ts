@@ -36,3 +36,15 @@ export const removeCar = async (id: number) => {
     
     return { message: 'Car deleted successfully' };
 }
+
+
+export const modifyCar = async (id: number, carData: any) => {
+    if (isNaN(id) || id <= 0) {
+        throw new Error('Invalid car ID');
+    }
+    const car = await carRepositories.getCarById(id);
+    if (!car) {
+        throw new Error('Car not found');
+    }
+    return await carRepositories.updateCar(id, carData);
+}
