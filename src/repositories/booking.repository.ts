@@ -33,3 +33,11 @@ export const createBooking = async (bookingData: Booking) => {
     .query('INSERT INTO Booking (customer_id, car_id, rental_start_date, rental_end_date, total_amount) VALUES (@customer_id, @car_id, @rental_start_date, @rental_end_date, @total_amount)');
     return { message: 'Booking created successfully' };
 };
+
+export const deleteBooking = async (booking_id: number) => {
+    const pool = await getPool();
+    await pool
+    .request()
+    .input('booking_id', booking_id)
+    .query('DELETE FROM Booking WHERE booking_id = @booking_id');
+};

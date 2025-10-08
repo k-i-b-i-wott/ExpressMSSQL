@@ -32,3 +32,13 @@ export const createBooking = async (req: Request, res: Response) => {
         res.status(500).json({ message: 'Error creating booking', error });
     }
 }
+
+export const deleteBooking = async (req: Request, res: Response) => {
+    const booking_id = parseInt(req.params.id);
+    try {
+        const result = await bookingService.deleteBooking(booking_id);
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(500).json({ message: 'Error deleting booking', error });
+    }
+}

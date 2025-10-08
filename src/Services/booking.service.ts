@@ -23,3 +23,8 @@ export const createBooking = async (bookingData: Booking) => {
     await bookingRepository.createBooking(bookingData);
     return { message: 'Booking created successfully' };
 }
+
+export const deleteBooking = async (booking_id: number) => {
+    await bookingRepository.deleteBooking(booking_id);
+    return { message: 'Booking deleted successfully' };
+}
