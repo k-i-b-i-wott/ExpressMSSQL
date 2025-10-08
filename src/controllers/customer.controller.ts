@@ -42,6 +42,24 @@ export const createCustomer = async (req: Request, res: Response) => {
     }
 }
 
+export const updateCustomer = async (req: Request, res: Response) => {
+    const id = parseInt(req.params.id);
+    const customerData = req.body;
+    try {
+        const updatedCustomer = await customerServices.modifyCustomer(id, customerData);
+        res.status(200).json({ message: "Customer updated successfully", customer: updatedCustomer });
+    } catch (error: any) {
+        if (error.message === "Invalid ID") {
+            return res.status(400).json({ error: error.message });
+        }
+        if (error.message === "Customer not found") {
+            res.status(404).json({ error: error.message });
+        } else {
+            res.status(500).json({ error: "Internal Server Error" });
+        }
+    }
+}
+
 export const deleteCustomer = async (req: Request, res: Response) => {
     const id = parseInt(req.params.id);
     try {

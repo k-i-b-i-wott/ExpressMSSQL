@@ -33,3 +33,9 @@ export const removeCustomer = async (id: number) => {
     }
     return await customerRepositories.deleteCustomer(id);
 }
+export const modifyCustomer = async (id: number, customerData: Partial<createCustomerDTO>) => {
+    if (isNaN(id) || id <= 0) {
+        throw new Error("Invalid ID");
+    }
+    return await customerRepositories.updateCustomer(id, customerData);
+}
