@@ -22,3 +22,13 @@ export const getBookingById = async (req: Request, res: Response) => {
         res.status(404).json({ message: 'Booking not found'});
     }
 }
+
+export const createBooking = async (req: Request, res: Response) => {
+    const bookingData = req.body;
+    try {
+        const result = await bookingService.createBooking(bookingData);
+        res.status(201).json(result);
+    } catch (error) {
+        res.status(500).json({ message: 'Error creating booking', error });
+    }
+}

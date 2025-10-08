@@ -16,3 +16,9 @@ export const getBookingDetails = async (booking_id: number) => {
 
     return await bookingRepository.getBookingById(booking_id);
 }
+
+export const createBooking = async (bookingData: any) => {
+    
+    await bookingRepository.createBooking(bookingData);
+    return { message: 'Booking created successfully' };
+}
