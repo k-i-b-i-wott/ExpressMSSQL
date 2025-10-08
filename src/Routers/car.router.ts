@@ -8,6 +8,7 @@ const carRoutes = (app: Express) => {
   app.get("/cars/:id", carContoller.getCarById);
   app.delete("/cars/:id", carContoller.deleteCar);
   app.put("/cars/:id", carContoller.updateCar);
+  app.patch("/cars/:id", carContoller.updateCar);
 
 };
 

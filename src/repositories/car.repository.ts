@@ -1,12 +1,13 @@
 
 import { getPool } from '../db/config';
+import { CarUpdate, NewCar } from '../types/car.types';
 
 export const getAllCars = async () => {
     const pool = await getPool();
     const result = await pool.request().query('SELECT * FROM Car');
     return result.recordset;}
 
-export const addCar = async(carData:any) => {
+export const addCar = async(carData:NewCar) => {
      const pool = await getPool();
     await pool
     .request()
@@ -40,7 +41,7 @@ export const deleteCar = async (car_id: number) => {
 }  
 
 
-export const updateCar = async (car_id: number, carData: any) => {
+export const updateCar = async (car_id: number, carData: CarUpdate) => {
     const pool = await getPool();
     await pool
     .request()
