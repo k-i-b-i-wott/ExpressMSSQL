@@ -11,8 +11,13 @@ export const getLocations = async () => {
 
 export const getLocationDetails =async(location_id:number)=>{
     const pool= await getPool()
+    
+    if(!location_id){
+        throw  error("Location not found")
+    }
    const result=  await pool.request()
     .input("location_id",location_id)
+
     .query('SELECT * FROM Location WHERE location_id= @location_id')
 
     return result.recordset[0];
