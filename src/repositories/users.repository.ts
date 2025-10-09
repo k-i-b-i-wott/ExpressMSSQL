@@ -28,3 +28,10 @@ export const insertUser = async (user: newUser) => {
 }   ;
     
 
+export const getUserByEmailAddress = async (email_address: string) => {
+    const pool = await getPool();
+    const result = await pool.request()
+        .input('email_address', email_address)
+        .query('SELECT * FROM Users WHERE email_address = @email_address');
+    return result.recordset[0] || null;    
+}
