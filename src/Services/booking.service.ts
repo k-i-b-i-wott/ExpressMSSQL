@@ -29,7 +29,7 @@ export const deleteBooking = async (booking_id: number) => {
     return { message: 'Booking deleted successfully' };
 }
 
-export const updateBooking = async (booking_id: number, bookingData: Partial<BookingUpdate>) => {
+export const updateBooking = async (booking_id: number, bookingData: Partial<BookingUpdate | Booking>) => {
     if (isNaN(booking_id) || booking_id <= 0) {
         throw new Error('Invalid booking ID');
     }
