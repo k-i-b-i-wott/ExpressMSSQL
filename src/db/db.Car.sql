@@ -185,7 +185,23 @@ INSERT INTO Location ( car_id, location_name, address, contact_number) VALUES
 ( 8, 'Nakuru Branch', 'Kenyatta Ave', '0711000004'),
 ( 5, 'Eldoret Branch', 'Uganda Rd', '0711000005');
 
--- SELECT * FROM cars.Location;
+
+CREATE TABLE Users(
+    user_id INT IDENTITY(1,1) PRIMARY KEY,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    user_name  VARCHAR(50) UNIQUE NOT NULL,
+    email_address VARCHAR(100) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    phone_number VARCHAR(13) UNIQUE NOT NULL,
+    
+);
+
+SELECT * FROM Users;
+
+INSERT INTO Users (first_name, last_name, user_name, email_address, password, phone_number) VALUES
+('Tanui', 'Biwott', 'adminuser', 'admin@example.com', 'password123', '0712345678');
+
 
 -- CREATE TABLE cars.Reservation (
 --     reservation_id INT PRIMARY KEY,
