@@ -32,3 +32,14 @@ export const updateLocation = async(location_id:number, locationData:Partial<upd
     const updatedLocation = await locationRepository.updateLocation(location_id, locationData)
     return updatedLocation
 }
+
+export const deleteLocation= async(location_id:number)=>{
+    if(isNaN(location_id)|| location_id <= 0){
+        throw error("Invalid location ID")
+    }
+    const existingLocation = await locationRepository.getLocationDetails(location_id)
+    if(!existingLocation){
+        throw error ("Location not found")
+    }
+    return await locationRepository.deleteLocation(location_id);
+}

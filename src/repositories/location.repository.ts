@@ -45,3 +45,13 @@ export const updateLocation = async(location_id:number, locationData:Partial<upd
     .query('UPDATE Location SET car_id=@car_id, location_name=@location_name, address=@address, contact_number=@contact_number WHERE location_id=@location_id')
    return result.recordset;
 }
+
+
+export const deleteLocation = async(location_id:number)=>{
+    const pool = await getPool()
+    await pool
+    .request()
+    .input("location_id",location_id)
+    .query('DELETE FROM Location WHERE location_id=@location_id')
+     return("Location deleted successfully")
+    }
