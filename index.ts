@@ -5,6 +5,7 @@ import carRoutes from "./src/Routers/car.router";
 import customerRoutes from "./src/Routers/customer.routes";
 import bookingRoutes from "./src/Routers/booking.routes";
 import locationRouter from "./src/Routers/location.routes";
+import userRoutes from "./src/Routers/users.routes";
 
 
 const app = express();
@@ -17,7 +18,7 @@ carRoutes (app);
 customerRoutes(app);
 bookingRoutes(app);
 locationRouter(app);
-
+userRoutes(app);
 
 
 

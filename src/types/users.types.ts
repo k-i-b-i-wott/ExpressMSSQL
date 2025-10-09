@@ -1,7 +1,7 @@
-export interface createUser {
+export interface newUser {
     first_name: string;
     last_name: string;
-    username: string;
+    user_name: string;
     password: string;
     email_address: string;    
     phone_number: string;    
@@ -9,7 +9,7 @@ export interface createUser {
 export interface updateUser {
     first_name?: string;
     last_name?: string;
-    username?: string;
+    user_name?: string;
     password?: string;
     email_address?: string;    
     phone_number?: string;    

@@ -1,6 +1,6 @@
 import { getPool } from "../db/config";
-import { createUser } from "../types/users.types";
-
+import { newUser } from "../types/users.types";
+import bcrypt from 'bcrypt';
 
 export const getUsers = async () => {
     const pool = await getPool();
@@ -8,17 +8,21 @@ export const getUsers = async () => {
     return result.recordset;
 }
 
-export const insertUser = async (user: createUser) => {
+export const insertUser = async (user: newUser) => {
 
     const pool = await getPool();
-     await pool.request()
+       if(user.password) {
+        const hashedPassword = await bcrypt.hash(user.password, 10);        
+        user.password = hashedPassword;
+    }
+     await pool.request()    
         .input('first_name', user.first_name)
         .input('last_name', user.last_name)
-        .input('username', user.username)
+        .input('user_name', user.user_name)
         .input('password', user.password)
         .input('email_address', user.email_address)
         .input('phone_number', user.phone_number)
-        .query('INSERT INTO Users (first_name, last_name, username, password, email_address, phone_number) VALUES (@first_name, @last_name, @username, @password, @email_address, @phone_number)');
+        .query('INSERT INTO Users (first_name, last_name, user_name, password, email_address, phone_number) VALUES (@first_name, @last_name, @user_name, @password, @email_address, @phone_number)');
         
     return { message: 'User created successfully' };
 }   ;
