@@ -8,6 +8,7 @@ const locationRouter =(app: Express) => {
     app.get('/locations', locationController.getLocations);
     app.get('/locations/:location_id', locationController.getLocationDetails);
     app.post('/locations',locationController.createLocation);
+    app.patch('/locations/:location_id',locationController.updateLocation)
 }
 
 export default locationRouter;

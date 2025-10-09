@@ -44,3 +44,24 @@ export const createLocation = async(req:Request,res:Response)=>{
     } 
 
     }
+
+
+export const updateLocation = async(req:Request,res:Response)=>{
+    
+    const location_id = parseInt(req.params.location_id )
+    const updatedLocation= req.body
+
+    try {
+        const updatedLocationDetails = await locationService.updateLocation(location_id,updatedLocation)
+        res.status(200).json({message:"Location updated successfully", location: updatedLocationDetails })
+    } catch (error:any) {
+        if(error.message === "Invalid location ID"){
+            res.status(400).json({error: error.message})
+         }else if(error.message === "Location details not found"){
+            res.status(404).json({error: error.message})
+         }else{
+            res.status(500).json({error: "Internal server error"})
+         }
+    }
+
+}
