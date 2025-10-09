@@ -3,7 +3,7 @@ import { Express } from 'express';
 
 const userRoutes=(app:Express)=>{
     app.get('/users',userController.getAllUsers);
-    app.post('/users',userController.createUser);
+    app.post('/register',userController.createUser);
     app.post('/login',userController.loginUser);
 }
 
