@@ -1,6 +1,7 @@
 import { getPool } from "../db/config";
 import { createUser } from "../types/users.types";
 
+
 export const getUsers = async () => {
     const pool = await getPool();
     const result = await pool.request().query('SELECT * FROM Users');
@@ -8,6 +9,7 @@ export const getUsers = async () => {
 }
 
 export const insertUser = async (user: createUser) => {
+
     const pool = await getPool();
      await pool.request()
         .input('first_name', user.first_name)
