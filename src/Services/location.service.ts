@@ -18,3 +18,8 @@ export const getLocationDetails = async(location_id:number)=>{
 
     return location
 }
+
+export const createLocation = async(locationData:any)=>{
+    const createdLocation = await locationRepository.createLocation(locationData)
+    return createdLocation
+}

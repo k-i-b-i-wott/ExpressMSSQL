@@ -15,3 +15,14 @@ export const getLocationDetails =async(location_id:number)=>{
 
     return result.recordset[0];
 }
+
+export const createLocation = async(locationData:any)=>{
+    const pool= await getPool()
+   const result=  await pool.request()
+    .input("car_id",locationData.car_id)
+    .input("location_name",locationData.location_name)
+    .input("address",locationData.address)
+    .input("contact_number",locationData.contact_number)
+    .query('INSERT INTO Location (car_id, location_name, address, contact_number) VALUES (@car_id, @location_name, @address, @contact_number)')
+   return result.recordset;
+}

@@ -29,3 +29,18 @@ export const getLocationDetails = async(req:Request,res:Response)=>{
 
     }
 }
+
+export const createLocation = async(req:Request,res:Response)=>{
+    const locationData = req.body
+
+    try {
+
+        const createdLocation =  await locationService.createLocation(locationData);
+
+        res.status(201).json(createdLocation)        
+        
+    }  catch (error: any) {
+        res.status(500).json({ error: "Internal Server Error", details: error.message } );
+    } 
+
+    }
