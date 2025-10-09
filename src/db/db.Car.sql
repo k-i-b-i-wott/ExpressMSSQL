@@ -167,21 +167,23 @@ INSERT INTO Customer (firstName, lastName, email, phone_number, address) VALUES
 -- ;
 -- DROP TABLE cars.Customer;
 
--- CREATE TABLE cars.Location (
---     location_id INT  PRIMARY KEY,
---     car_id INT,
---     location_name VARCHAR(50),
---     address VARCHAR(30),
---     contact_number VARCHAR(13),
---     FOREIGN KEY (car_id) REFERENCES cars.car(car_id)
--- );
+CREATE TABLE Location (
+    location_id INT IDENTITY(1,1) PRIMARY KEY,
+    car_id INT NOT NULL,
+    location_name VARCHAR(50) NOT NULL,
+    address  VARCHAR(30) NOT NULL,
+    contact_number VARCHAR(13) NOT NULL,
+    FOREIGN KEY (car_id) REFERENCES Car(car_id)
+);
 
--- INSERT INTO cars.Location (location_id, car_id, location_name, address, contact_number) VALUES
--- (1, 1, 'Nairobi Branch', 'Moi Avenue', '0711000001'),
--- (2, 2, 'Mombasa Branch', 'Nkrumah Rd', '0711000002'),
--- (3, 3, 'Kisumu Branch', 'Oginga Odinga St', '0711000003'),
--- (4, 4, 'Nakuru Branch', 'Kenyatta Ave', '0711000004'),
--- (5, 5, 'Eldoret Branch', 'Uganda Rd', '0711000005');
+SELECT * FROM Location;
+
+INSERT INTO Location ( car_id, location_name, address, contact_number) VALUES
+( 1, 'Nairobi Branch', 'Moi Avenue', '0711000001'),
+( 3, 'Mombasa Branch', 'Nkrumah Rd', '0711000002'),
+( 7, 'Kisumu Branch', 'Oginga Odinga St', '0711000003'),
+( 8, 'Nakuru Branch', 'Kenyatta Ave', '0711000004'),
+( 5, 'Eldoret Branch', 'Uganda Rd', '0711000005');
 
 -- SELECT * FROM cars.Location;
 
