@@ -6,6 +6,7 @@ import { Express } from 'express';
 
 const locationRouter =(app: Express) => {
     app.get('/locations', locationController.getLocations);
+    app.get('/locations/:location_id', locationController.getLocationDetails);
 }
 
 export default locationRouter;
