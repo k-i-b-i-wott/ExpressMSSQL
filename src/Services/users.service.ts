@@ -38,6 +38,7 @@ export const loginUser = async (email_address: string, password: string) => {
         sub: user.user_id,
         email: user.email_address,
         userName: user.user_name,
+        role: user.role,
         exp: Math.floor(Date.now() / 1000) + (60 * 60)
      };   
    
@@ -53,7 +54,8 @@ export const loginUser = async (email_address: string, password: string) => {
             last_name: user.last_name,
             user_name: user.user_name,
             email_address: user.email_address,
-            phone_number: user.phone_number
+            phone_number: user.phone_number,
+            role: user.role
         }
     }
 }

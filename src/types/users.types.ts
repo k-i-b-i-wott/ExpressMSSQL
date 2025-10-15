@@ -4,7 +4,8 @@ export interface newUser {
     user_name: string;
     password: string;
     email_address: string;    
-    phone_number: string;    
+    phone_number: string;   
+    role?: string; 
 }
 export interface updateUser {
     first_name?: string;
@@ -12,6 +13,7 @@ export interface updateUser {
     user_name?: string;
     password?: string;
     email_address?: string;    
-    phone_number?: string;    
+    phone_number?: string;   
+    role?: string; 
 }
 
