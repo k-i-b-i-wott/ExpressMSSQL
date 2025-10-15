@@ -194,10 +194,14 @@ CREATE TABLE Users(
     email_address VARCHAR(100) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL,
     phone_number VARCHAR(13) UNIQUE NOT NULL,
+    role VARCHAR(20) DEFAULT('user')
     
 );
 
 SELECT * FROM Users;
+
+DROP TABLE IF EXISTS Users;
+
 
 INSERT INTO Users (first_name, last_name, user_name, email_address, password, phone_number) VALUES
 ('Tanui', 'Biwott', 'adminuser', 'admin@example.com', 'password123', '0712345678');
