@@ -3,6 +3,7 @@ import { newUser } from '../types/users.types';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
+import { sendMail } from '../mailer/mailer';
 
 dotenv.config();
 
@@ -19,7 +20,21 @@ export const insertUser = async (userData: newUser) => {
     }
     
     const newUser = await userRepository.insertUser(userData);
+    
+    try {
+        await sendMail(
+            userData.email_address,
+            'Welcome to Our Service',
+            `<h1>Welcome, ${userData.user_name}!</h1><p>Thank you for registering.</p>`
+        );
+
+    } catch (error:any) {
+        return JSON.stringify({message: error.message} );     
+    }
+    
     return newUser;
+
+    
 }
 
 export const loginUser = async (email_address: string, password: string) => {
