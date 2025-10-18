@@ -7,6 +7,7 @@ const userRoutes=(app:Express)=>{
     app.get('/users', userOnly,  userController.getAllUsers);
     app.post('/register',userController.createUser);
     app.post('/login',userController.loginUser);
+    app.post('/verify-email', userController.verifyEmail);
 }
 
 export default userRoutes;

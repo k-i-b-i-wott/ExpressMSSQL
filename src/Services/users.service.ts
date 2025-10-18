@@ -27,18 +27,37 @@ export const insertUser = async (userData: newUser) => {
     try {
         await sendMail(
             userData.email_address,
-            'Welcome to Our Service',
-            mailTemplate.welcome(userData.user_name)
-           
+            'Verify your account',
+            mailTemplate.verify(verificationCode,userData.first_name)           
         );
+
+          return newUser;
 
     } catch (error:any) {
         return JSON.stringify({message: error.message} );     
     }
 
-    return newUser;
+  
 
     
+}
+
+
+export const verifyEmail = async (email_address: string, code:string) => {
+    const user = await userRepository.getUserByEmailAddress(email_address);
+    if(!user) {
+        throw new Error("User not found");
+    }
+    if(user.verification_code !== code) {
+        throw new Error("Invalid verification code");
+    }
+    await userRepository.verifyUserEmail(email_address);
+    sendMail(
+        email_address,
+        'Email Verified',
+        mailTemplate.verificationSuccess(user.first_name)
+    );
+    return { message: "Email verified successfully" };
 }
 
 export const loginUser = async (email_address: string, password: string) => {
