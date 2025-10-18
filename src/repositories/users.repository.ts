@@ -52,4 +52,9 @@ export const verifyUserEmail = async (email_address: string) => {
     return result.recordset[0] || null;
 }
 
-
+export const deleteUserByEmailAddress = async (email_address: string) => {
+    const pool = await getPool();
+    await pool.request()
+        .input('email_address', email_address)
+        .query('DELETE FROM Users WHERE email_address = @email_address');
+}

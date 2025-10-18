@@ -69,3 +69,17 @@ export const loginUser = async (req:Request, res:Response) => {
 
 
     }}
+
+
+export const deleteUser = async (req:Request, res:Response) => {
+    const { email_address } = req.params;
+    try {
+        const result = await userService.deleteUser(email_address);
+        res.status(200).json(result);
+    } catch (error:any) {
+        if(error.message === "User not found") {
+            return res.status(404).json({error: error.message});
+        }
+        res.status(500).json({ error: "Internal Server Error", details: error.message });
+    }
+}    

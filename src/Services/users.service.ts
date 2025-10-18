@@ -97,3 +97,13 @@ export const loginUser = async (email_address: string, password: string) => {
         }
     }
 }
+
+
+export const deleteUser = async (email_address: string) => {
+    const user = await userRepository.getUserByEmailAddress(email_address);
+    if(!user) {
+        throw new Error("User not found");
+    }
+    await userRepository.deleteUserByEmailAddress(email_address);
+    return { message: "User deleted successfully" };
+}
