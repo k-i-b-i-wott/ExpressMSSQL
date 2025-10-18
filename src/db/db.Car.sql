@@ -200,6 +200,11 @@ CREATE TABLE Users(
 
 SELECT * FROM Users;
 
+-- Add verification columns to existing Users table
+ALTER TABLE Users
+ADD verification_code VARCHAR(10),
+    is_verified BIT DEFAULT 0;
+
 DROP TABLE IF EXISTS Users;
 
 

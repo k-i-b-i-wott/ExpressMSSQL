@@ -36,3 +36,27 @@ export const getUserByEmailAddress = async (email_address: string) => {
         .query('SELECT * FROM Users WHERE email_address = @email_address');
     return result.recordset[0] || null;    
 }
+
+export const setVerificationCode = async (email_address: string, code: string) => {
+    const pool = await getPool();
+    await pool.request()
+        .input('email_address', email_address)
+        .input('verification_code', code)
+        .query('UPDATE Users SET verification_code = @verification_code WHERE email_address = @email_address');
+}
+export const verifyUserEmail = async (email_address: string, code: string) => {
+    const pool = await getPool();
+    const result = await pool.request()
+        .input('email_address', email_address)
+        .input('verification_code', code)
+        .query('SELECT * FROM Users WHERE email_address = @email_address AND verification_code = @verification_code');
+    return result.recordset[0] || null;
+}
+
+
+export const markEmailAsVerified = async (email_address: string) => {
+    const pool = await getPool();
+    await pool.request()
+        .input('email_address', email_address)
+        .query('UPDATE Users SET is_verified = 1, verification_code = NULL WHERE email_address = @email_address');
+}
