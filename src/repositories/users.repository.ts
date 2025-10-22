@@ -49,7 +49,7 @@ export const verifyUserEmail = async (email_address: string) => {
     const result = await pool.request()
         .input('email_address', email_address)
         .query('UPDATE Users SET is_verified = 1, verification_code = NULL WHERE email_address = @email_address');
-    return result.recordset[0] || null;
+    return result.recordset;
 }
 
 export const deleteUserByEmailAddress = async (email_address: string) => {

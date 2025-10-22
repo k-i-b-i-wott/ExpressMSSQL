@@ -1,4 +1,4 @@
-import { verify } from "crypto";
+
 
 export const mailTemplate = {
     welcome: (userName: string) => `
