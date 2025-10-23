@@ -4,6 +4,7 @@
     "module": "NodeNext", // Use the Node.js module system with support for both CommonJS and ES
     "rootDir": ".", // Allow source files at project root and inside src
     "moduleResolution": "nodenext", // Control how modules are found — matches Node.js’s latest module resolution rules.
+    "isolatedModules": true,
     "outDir": "./dist", // Put all compiled JavaScript files into the dist folder.
     "esModuleInterop": true, // Makes it easier to import CommonJS modules with import syntax.
     "forceConsistentCasingInFileNames": true, // Ensures file imports are case-sensitive.
@@ -14,7 +15,7 @@
   "include": [
     "src/**/*",  //Compile everything inside src (any extension)
     "index.ts" // Also include the root-level entry file
-  ],
+, "__tests__"  ],
   "exclude": [ // Don’t compile external libraries or test files (.spec.ts).
     "node_modules",
     "**/*.spec.ts"
