@@ -12,7 +12,7 @@ export const insertUser = async (user: newUser) => {
 
     const pool = await getPool();
        if(user.password) {
-        const hashedPassword = await bcrypt.hash(user.password, 10);        
+        const hashedPassword = await bcrypt.hash(user.password,10);        
         user.password = hashedPassword;
     }
      await pool.request()    
@@ -22,10 +22,10 @@ export const insertUser = async (user: newUser) => {
         .input('password', user.password)
         .input('email_address', user.email_address)
         .input('phone_number', user.phone_number)
-        .input('role', user.role || 'user') // Default role is 'user'
+        .input('role', user.role || 'user') 
         .query('INSERT INTO Users (first_name, last_name, user_name, password, email_address, phone_number, role) VALUES (@first_name, @last_name, @user_name, @password, @email_address, @phone_number, @role)');
         
-    return { message: 'User created successfully' };
+    return { message: 'User created successfully'};
 }   ;
     
 

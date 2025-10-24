@@ -1,8 +1,8 @@
 import * as userRepository from '../src/repositories/users.repository'
 
 import * as userService from '../src/Services/users.service';
-import { newUser } from '../src/types/users.types';
-import bcrypt from 'bcrypt';
+
+import bcrypt from "bcrypt";
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import { sendMail } from '../src/mailer/mailer';
@@ -73,25 +73,56 @@ describe("User service tests", ()=>{
         phone_number: "07124345678",
         role: "user"        
     };
-(bcrypt.hash as jest.Mock).mockResolvedValue("hashedPassword")
-(userRepository.insertUser as jest.Mock).mockResolvedValue({message:"User created successfully"})
-(userRepository.setVerificationCode as jest.Mock).mockResolvedValue({})
-(sendMail as jest.Mock).mockResolvedValue(true)
-(mailTemplate.verify as jest.Mock).mockResolvedValue('<h2>Email Verification</h2>')
 
- const results = await userService.insertUser(mockUser)
+(userRepository.insertUser as jest.Mock).mockResolvedValue( {message:"User created successfully"});
+(userRepository.setVerificationCode as jest.Mock).mockResolvedValue({});
+(sendMail as jest.Mock).mockResolvedValue(true);
+(mailTemplate.verify as jest.Mock).mockResolvedValue('<h2>Email Verification</h2>');
 
- expect(bcrypt.hash).toHaveBeenCalledWith("password123",10)
- expect(userRepository.insertUser ).toHaveBeenCalled()
- expect(userRepository.setVerificationCode).toHaveBeenCalled()
- expect(sendMail).toHaveBeenCalled()
+ const results = await userService.insertUser(mockUser);
 
- expect(results).toEqual({message:"User created successfully"})
+
+ expect(userRepository.insertUser ).toHaveBeenCalled();
+ expect(userRepository.setVerificationCode).toHaveBeenCalled();
+ expect(sendMail).toHaveBeenCalled();
+ expect(results).toEqual({message:"User created successfully"});
 
 
 
    })
+
+   it("Should send the verification success email", async ()=>{
+      const mockUser = {
+         user_id: 2,
+        first_name: "Tanui",
+        last_name: "Biwott",
+        user_name: "user",
+        email_address: "user@example.com",
+        password: "password123",
+        phone_number: "07124345678",
+        role: "user" ,
+        verification_code: "123456",
+        is_verified: false
+
+    };
    
-     
+
+    (userRepository.getUserByEmailAddress as jest.Mock).mockResolvedValue(mockUser);
+    (userRepository.verifyUserEmail as jest.Mock).mockResolvedValue({});
+    (sendMail as jest.Mock).mockResolvedValue(true);
+    (mailTemplate.verificationSuccess as jest.Mock).mockResolvedValue('<h2>Verification Success</h2>');
+    const results = await userService.verifyEmail(mockUser.email_address, "123456");
+    expect(userRepository.getUserByEmailAddress).toHaveBeenCalled();
+    expect(userRepository.verifyUserEmail).toHaveBeenCalled();
+    expect(sendMail).toHaveBeenCalled();
+    expect(results).toEqual({ message: "Email verified successfully" });
+
+
+
+
+});
+
+
 
 })
+
