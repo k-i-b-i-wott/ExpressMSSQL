@@ -1,6 +1,6 @@
 //bad request
 
-import e, { Request, Response } from 'express';
+import  { Request, Response } from 'express';
 import { getPool } from '../db/config';
 import sql from 'mssql';
 import * as carServices from '../Services/car.service';
