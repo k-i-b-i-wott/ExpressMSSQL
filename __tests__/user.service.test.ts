@@ -61,6 +61,36 @@ describe("User service tests", ()=>{
 
 
    })
+
+   it("It should be able to send the verification code", async ()=>{
+    const mockUser = {
+         user_id: 2,
+        first_name: "Tanui",
+        last_name: "Biwott",
+        user_name: "user",
+        email_address: "user@example.com",
+        password: "password123",
+        phone_number: "07124345678",
+        role: "user"        
+    };
+(bcrypt.hash as jest.Mock).mockResolvedValue("hashedPassword")
+(userRepository.insertUser as jest.Mock).mockResolvedValue({message:"User created successfully"})
+(userRepository.setVerificationCode as jest.Mock).mockResolvedValue({})
+(sendMail as jest.Mock).mockResolvedValue(true)
+(mailTemplate.verify as jest.Mock).mockResolvedValue('<h2>Email Verification</h2>')
+
+ const results = await userService.insertUser(mockUser)
+
+ expect(bcrypt.hash).toHaveBeenCalledWith("password123",10)
+ expect(userRepository.insertUser ).toHaveBeenCalled()
+ expect(userRepository.setVerificationCode).toHaveBeenCalled()
+ expect(sendMail).toHaveBeenCalled()
+
+ expect(results).toEqual({message:"User created successfully"})
+
+
+
+   })
    
      
 

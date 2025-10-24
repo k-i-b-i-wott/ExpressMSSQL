@@ -20,7 +20,7 @@ export const insertUser = async (userData: newUser) => {
         throw new Error("User data is required");
     }
     
-    const newUser = await userRepository.insertUser(userData);
+    await userRepository.insertUser(userData);
 
     const verificationCode = Math.floor(100000 + Math.random() * 900000).toString();
     await userRepository.setVerificationCode(userData.email_address, verificationCode);    
@@ -31,7 +31,7 @@ export const insertUser = async (userData: newUser) => {
             mailTemplate.verify(verificationCode,userData.first_name)           
         );
 
-          return newUser;
+          return {message:"User created successfully"}
 
     } catch (error:any) {
         return JSON.stringify({message: error.message} );     
