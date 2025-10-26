@@ -8,11 +8,16 @@ import locationRouter from "./src/Routers/location.routes";
 import userRoutes from "./src/Routers/users.routes";
 
 
+
+
+//register routes here
+
+
+const initializeApp = ()=>{
 const app = express();
 
 app.use(express.json());
 
-//register routes here
 
 carRoutes (app);
 customerRoutes(app);
@@ -21,18 +26,18 @@ locationRouter(app);
 userRoutes(app);
 
 
+return app;
+
+}
 
 
-const PORT = process.env.PORT || 8080;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+const app = initializeApp()
+
+export default app;
 
 
-getPool()
-  .then((pool) => {
-    console.log("Connected to SQL Server");
-  })
-  .catch((error) => {
-    console.error("Error connecting to SQL Server:", error);
-  });
+
+
+
+
+
