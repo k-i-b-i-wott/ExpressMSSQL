@@ -85,7 +85,7 @@ export const loginUser = async (email_address: string, password: string) => {
         exp: Math.floor(Date.now() / 1000) + (60 * 60)
      };   
    
-     const secret = process.env.JWT_SECRET as string;
+const secret = process.env.JWT_SECRET as string;
     if (!secret) throw new Error('JWT secret not defined');
     const token = jwt.sign(payload, secret);
     return{

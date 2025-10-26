@@ -175,4 +175,32 @@ it("Should throw an error for invalid code", async ()=>{
 });
 
 
+it("Should return token and user info when login is successful", async()=>{
+const mockUser={
+      user_id: 2,
+        first_name: "Tanui",
+        last_name: "Biwott",
+        user_name: "user",
+        email_address: "user@example.com",
+        password: "hashedPassword",
+        phone_number: "07124345678",
+        role: "user" ,       
+        is_verified: true
+    };
+
+
+    (userRepository.getUserByEmailAddress as jest.Mock).mockResolvedValue(mockUser);
+    (bcrypt.compare as jest.Mock).mockResolvedValue(true);
+    (jwt.sign as jest.Mock).mockReturnValue("mockjwtToken");
+
+     const results = await userService.loginUser("user@example.com","password123");
+
+     expect(userRepository.getUserByEmailAddress).toHaveBeenCalledWith("user@example.com");
+
+     expect(jwt.sign).toHaveBeenCalled();
+
+     expect(results).toHaveProperty("token", "mockjwtToken");
+
+})
+
 })
