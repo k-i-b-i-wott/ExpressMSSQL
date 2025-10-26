@@ -73,7 +73,7 @@ describe("User service tests", ()=>{
         phone_number: "07124345678",
         role: "user"        
     };
-
+(bcrypt.hash as jest.Mock).mockResolvedValue("hashedpassword");
 (userRepository.insertUser as jest.Mock).mockResolvedValue( {message:"User created successfully"});
 (userRepository.setVerificationCode as jest.Mock).mockResolvedValue({});
 (sendMail as jest.Mock).mockResolvedValue(true);
@@ -124,5 +124,55 @@ describe("User service tests", ()=>{
 
 
 
+it("Should verify user with the correct code",  async ()=>{
+      const mockUser = {
+                
+        email_address: "user@example.com",  
+        
+        verification_code: "123456",
+        is_verified: false
+    };
+
+    ( userRepository.getUserByEmailAddress as jest.Mock).mockResolvedValue(mockUser);
+    (userRepository.verifyUserEmail as jest.Mock).mockResolvedValue({});
+    (sendMail as jest.Mock).mockResolvedValue(true);
+    (mailTemplate.welcome as jest.Mock).mockResolvedValue('<p>Thank you for registering.</p>');
+
+
+    const results = await userService.verifyEmail("user@example.com","123456");
+
+    expect(userRepository.getUserByEmailAddress).toHaveBeenCalledWith("user@example.com");
+    expect(sendMail).toHaveBeenCalled()
+
+    expect(results).toEqual({ message: "Email verified successfully" });
+
+    
+    
+
+
 })
 
+it("Should throw an error for invalid code", async ()=>{
+     const mockUser = {
+         user_id: 2,
+        first_name: "Tanui",
+        last_name: "Biwott",
+        user_name: "user",
+        email_address: "user@example.com",
+        password: "password123",
+        phone_number: "07124345678",
+        role: "user" ,
+        verification_code: "123456",
+        is_verified: false
+    };
+
+    (userRepository.getUserByEmailAddress as jest.Mock).mockResolvedValue(mockUser);
+
+    await expect(userService.verifyEmail("user@example.com","133456"))
+    .rejects
+    .toThrow("Invalid verification code");
+    
+});
+
+
+})

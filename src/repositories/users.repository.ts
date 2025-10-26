@@ -11,10 +11,7 @@ export const getUsers = async () => {
 export const insertUser = async (user: newUser) => {
 
     const pool = await getPool();
-       if(user.password) {
-        const hashedPassword = await bcrypt.hash(user.password,10);        
-        user.password = hashedPassword;
-    }
+    
      await pool.request()    
         .input('first_name', user.first_name)
         .input('last_name', user.last_name)

@@ -19,6 +19,11 @@ export const insertUser = async (userData: newUser) => {
     if(!userData) {
         throw new Error("User data is required");
     }
+
+       if(userData.password) {
+        const hashedPassword = await bcrypt.hash(userData.password,10);        
+        userData.password = hashedPassword;
+    }
     
     await userRepository.insertUser(userData);
 
